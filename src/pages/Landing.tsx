@@ -85,52 +85,52 @@ const Landing = () => {
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-10" />
-        <div className="container mx-auto px-4 pt-24 pb-16">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8">
+        <div className="container mx-auto px-4 pt-16 pb-10 sm:pt-24 sm:pb-16">
+          <div className="flex flex-col-reverse lg:grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            <div className="space-y-8 w-full">
               <div className="space-y-4">
                 <Badge variant="secondary" className="bg-gradient-aura text-white">
                   🌟 Building Stronger Communities Together
                 </Badge>
-                <h1 className="text-5xl lg:text-6xl font-bold leading-tight">
+                <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight">
                   Your Trusted
                   <span className="bg-gradient-hero bg-clip-text text-transparent"> Community </span>
                   Companion Network
                 </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed">
+                <p className="text-base xs:text-lg sm:text-xl text-muted-foreground leading-relaxed">
                   Connect with verified community members for safe rides, home help, companionship, and more. 
                   Earn Aura Points by helping others and building meaningful connections.
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button size="lg" className="bg-gradient-hero hover:opacity-90 transition-smooth" asChild>
-                  <Link to="/auth/signup" className="flex items-center space-x-2">
+              <div className="flex flex-col sm:flex-row gap-4 w-full">
+                <Button size="lg" className="bg-gradient-hero hover:opacity-90 transition-smooth w-full sm:w-auto" asChild>
+                  <Link to="/auth/signup" className="flex items-center justify-center space-x-2 w-full sm:w-auto">
                     <span>Get Started Free</span>
                     <ArrowRight className="w-5 h-5" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link to="/circles/join">Join Your Circle</Link>
+                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+                  <Link to="/circles/join" className="w-full sm:w-auto text-center">Join Your Circle</Link>
                 </Button>
               </div>
 
-              <div className="flex items-center space-x-8 pt-4">
+              <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 pt-4">
                 {stats.map((stat, index) => (
-                  <div key={index} className="text-center">
-                    <div className="text-2xl font-bold text-primary">{stat.value}</div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                  <div key={index} className="text-center min-w-[100px]">
+                    <div className="text-lg xs:text-xl sm:text-2xl font-bold text-primary">{stat.value}</div>
+                    <div className="text-xs sm:text-sm text-muted-foreground">{stat.label}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative">
+            <div className="relative w-full flex justify-center mb-8 lg:mb-0">
               <div className="absolute inset-0 bg-gradient-hero opacity-20 rounded-3xl blur-3xl" />
               <img 
                 src={heroImage} 
                 alt="Community members helping each other" 
-                className="relative z-10 w-full rounded-3xl shadow-2xl"
+                className="relative z-10 w-full max-w-xs xs:max-w-sm sm:max-w-md md:max-w-lg lg:max-w-full rounded-3xl shadow-2xl object-cover"
               />
             </div>
           </div>
@@ -245,7 +245,7 @@ const Landing = () => {
                 </Link>
               </Button>
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
-                <Link to="/circles/join">Find Your Circle</Link>
+                <Link to="/circles/join" className="text-blue-600 hover:text-blue-700">Find Your Circle</Link>
               </Button>
             </div>
           </div>
