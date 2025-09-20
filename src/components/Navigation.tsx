@@ -91,6 +91,7 @@ const Navigation = () => {
     <nav className="fixed top-0 w-full z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
+
           {/* Logo */}
           <Link to="/dashboard" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-gradient-hero rounded-lg flex items-center justify-center">
@@ -100,6 +101,7 @@ const Navigation = () => {
               Aurahood
             </span>
           </Link>
+
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
@@ -190,6 +192,8 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
+            {/* Top right Aurahood text for mobile */}
+            <span className="block md:hidden text-base font-bold bg-gradient-hero bg-clip-text text-transparent tracking-wide">Aurahood</span>
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"

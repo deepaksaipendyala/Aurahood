@@ -9,6 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 import { Mail, ArrowLeft, Check } from "lucide-react";
 
 const Auth = () => {
+  // Demo login state
+  const [demoLoading, setDemoLoading] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -48,6 +50,20 @@ const Auth = () => {
       title: "Coming soon!",
       description: "Google sign-in will be available after Supabase integration.",
     });
+  };
+
+  // Demo login handler
+  const handleDemoLogin = async () => {
+    setDemoLoading(true);
+    // Simulate login delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    // In a real app, set auth state here
+    toast({
+      title: "Demo login successful!",
+      description: "You are now logged in as a demo user.",
+    });
+    setDemoLoading(false);
+    navigate("/dashboard");
   };
 
   if (emailSent) {
@@ -110,6 +126,7 @@ const Auth = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+
             {/* Google Sign In */}
             <Button
               variant="outline"
@@ -135,6 +152,25 @@ const Auth = () => {
                 />
               </svg>
               Continue with Google
+            </Button>
+
+            {/* Demo Login */}
+            <Button
+              variant="secondary"
+              className="w-full"
+              onClick={handleDemoLogin}
+              disabled={demoLoading}
+            >
+              {demoLoading ? (
+                <div className="flex items-center space-x-2">
+                  <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
+                  <span>Logging in as Demo...</span>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <span>Demo Login (POC)</span>
+                </div>
+              )}
             </Button>
 
             <div className="relative">

@@ -82,6 +82,15 @@ const Landing = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Top right Aurahood text - bigger and more prominent */}
+      <div className="absolute right-0 top-0 w-full flex justify-end z-30 pointer-events-none select-none">
+        <span
+          className="m-6 text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-500 via-pink-400 to-orange-400 bg-clip-text text-transparent tracking-normal drop-shadow-md rounded-full px-6 py-2"
+          style={{ fontFamily: 'Nunito, Quicksand, Inter, sans-serif', letterSpacing: '0.02em', textTransform: 'none' }}
+        >
+          aurahood
+        </span>
+      </div>
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-hero opacity-10" />
@@ -106,7 +115,7 @@ const Landing = () => {
               <div className="flex flex-col sm:flex-row gap-4 w-full">
                 <Button size="lg" className="bg-gradient-hero hover:opacity-90 transition-smooth w-full sm:w-auto" asChild>
                   <Link
-                    to="/auth/signup"
+                    to="/auth"
                     className="flex items-center justify-center space-x-2 w-full sm:w-auto text-lg sm:text-xl py-4 px-8 bg-gradient-hero text-white font-bold rounded-2xl shadow-md hover:opacity-90 transition-all duration-200"
                   >
                     <span className="text-xl sm:text-2xl">Get Started Free</span>
@@ -115,7 +124,7 @@ const Landing = () => {
                 </Button>
                 <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                   <Link
-                    to="/circles/join"
+                    to="/auth"
                     className="flex items-center justify-center w-full sm:w-auto text-lg sm:text-xl py-4 px-8 bg-gradient-hero text-white font-bold rounded-2xl shadow-md hover:opacity-90 transition-all duration-200"
                   >
                     Join Your Circle
