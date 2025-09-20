@@ -192,8 +192,6 @@ const Navigation = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Top right Aurahood text for mobile */}
-            <span className="block md:hidden text-base font-semibold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent tracking-wide">Aurahood</span>
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"
