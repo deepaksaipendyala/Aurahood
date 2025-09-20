@@ -97,7 +97,7 @@ const Navigation = () => {
             <div className="w-8 h-8 bg-gradient-hero rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">A</span>
             </div>
-            <span className="text-xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+            <span className="text-xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent drop-shadow-md">
               Aurahood
             </span>
           </Link>
@@ -193,7 +193,7 @@ const Navigation = () => {
             </DropdownMenu>
 
             {/* Top right Aurahood text for mobile */}
-            <span className="block md:hidden text-base font-bold bg-gradient-hero bg-clip-text text-transparent tracking-wide">Aurahood</span>
+            <span className="block md:hidden text-base font-semibold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent tracking-wide">Aurahood</span>
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"

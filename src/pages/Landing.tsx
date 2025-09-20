@@ -85,10 +85,10 @@ const Landing = () => {
       {/* Top right Aurahood text - bigger and more prominent */}
       <div className="absolute right-0 top-0 w-full flex justify-end z-30 pointer-events-none select-none">
         <span
-          className="m-6 text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-500 via-pink-400 to-orange-400 bg-clip-text text-transparent tracking-normal drop-shadow-md rounded-full px-6 py-2"
-          style={{ fontFamily: 'Nunito, Quicksand, Inter, sans-serif', letterSpacing: '0.02em', textTransform: 'none' }}
+          className="m-6 text-2xl md:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent tracking-normal drop-shadow-md rounded-full px-6 py-2"
+          style={{ fontFamily: 'Nunito, Quicksand, Inter, sans-serif', letterSpacing: '0.01em', textTransform: 'none' }}
         >
-          aurahood
+          Aurahood
         </span>
       </div>
       {/* Hero Section */}
@@ -127,7 +127,7 @@ const Landing = () => {
                     to="/auth"
                     className="flex items-center justify-center w-full sm:w-auto text-lg sm:text-xl py-4 px-8 bg-gradient-hero text-white font-bold rounded-2xl shadow-md hover:opacity-90 transition-all duration-200"
                   >
-                    Join Your Circle
+                    See Demo (POC)
                   </Link>
                 </Button>
               </div>
@@ -288,7 +288,7 @@ const Landing = () => {
                 <div className="w-8 h-8 bg-gradient-hero rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-sm">A</span>
                 </div>
-                <span className="text-xl font-bold bg-gradient-hero bg-clip-text text-transparent">
+                <span className="text-xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent">
                   Aurahood
                 </span>
               </div>
