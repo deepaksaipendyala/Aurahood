@@ -6,19 +6,27 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, ArrowLeft, Check } from "lucide-react";
+import { useUser } from "@/contexts/UserContext";
+import { Mail, ArrowLeft, Check, Eye, EyeOff, User, Lock } from "lucide-react";
 
 const Auth = () => {
-  // Demo login state
-  const [demoLoading, setDemoLoading] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
+  const { login, register, demoLogin, isLoading, isAuthenticated } = useUser();
+
+  // Form state
+  const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [emailSent, setEmailSent] = useState(false);
 
   // Set signup state based on route
   useEffect(() => {
@@ -27,54 +35,110 @@ const Auth = () => {
     } else if (location.pathname === "/auth/signin") {
       setIsSignUp(false);
     }
-    // For /auth route, keep current state or default to false
   }, [location.pathname]);
 
-  const handleEmailAuth = async (e: React.FormEvent) => {
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
+
+  // Form validation
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+
+    if (isSignUp) {
+      if (!formData.name.trim()) {
+        newErrors.name = "Full name is required";
+      } else if (formData.name.trim().length < 2) {
+        newErrors.name = "Name must be at least 2 characters";
+      }
+
+      if (!formData.password) {
+        newErrors.password = "Password is required";
+      } else if (formData.password.length < 6) {
+        newErrors.password = "Password must be at least 6 characters";
+      }
+
+      if (!formData.confirmPassword) {
+        newErrors.confirmPassword = "Please confirm your password";
+      } else if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors(prev => ({ ...prev, [field]: "" }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    
+    if (!validateForm()) {
+      return;
+    }
 
     try {
-      // In real app, this would integrate with Supabase auth
-      // For now, simulate email sending
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      setEmailSent(true);
-      toast({
-        title: "Magic link sent!",
-        description: "Check your email for a secure sign-in link.",
-      });
+      if (isSignUp) {
+        await register(formData.name, formData.email, formData.password);
+        toast({
+          title: "Welcome to Aurahood!",
+          description: "Your account has been created successfully.",
+        });
+      } else {
+        await login(formData.email, formData.password);
+        toast({
+          title: "Welcome back!",
+          description: "You have been signed in successfully.",
+        });
+      }
+      navigate("/dashboard");
     } catch (error) {
       toast({
         title: "Error",
+        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleDemoLogin = async () => {
+    try {
+      await demoLogin();
+      toast({
+        title: "Demo login successful!",
+        description: "You are now logged in as a demo user.",
+      });
+      navigate("/dashboard");
+    } catch (error) {
+      toast({
+        title: "Demo login failed",
         description: "Something went wrong. Please try again.",
         variant: "destructive",
       });
-    } finally {
-      setIsLoading(false);
     }
   };
 
   const handleGoogleAuth = async () => {
-    // In real app, this would integrate with Supabase Google OAuth
     toast({
       title: "Coming soon!",
-      description: "Google sign-in will be available after Supabase integration.",
+      description: "Google sign-in will be available in the next update.",
     });
-  };
-
-  // Demo login handler
-  const handleDemoLogin = async () => {
-    setDemoLoading(true);
-    // Simulate login delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    // In a real app, set auth state here
-    toast({
-      title: "Demo login successful!",
-      description: "You are now logged in as a demo user.",
-    });
-    setDemoLoading(false);
-    navigate("/dashboard");
   };
 
   if (emailSent) {
@@ -87,7 +151,7 @@ const Auth = () => {
             </div>
             <CardTitle>Check your email</CardTitle>
             <CardDescription>
-              We've sent a secure sign-in link to <strong>{email}</strong>
+              We've sent a secure sign-in link to <strong>{formData.email}</strong>
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -170,9 +234,9 @@ const Auth = () => {
               variant="default"
               className="w-full bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white font-semibold"
               onClick={handleDemoLogin}
-              disabled={demoLoading}
+              disabled={isLoading}
             >
-              {demoLoading ? (
+              {isLoading ? (
                 <div className="flex items-center space-x-2">
                   <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
                   <span>Logging in as Demo...</span>
@@ -196,47 +260,124 @@ const Auth = () => {
             </div>
 
             {/* Email Form */}
-            <form onSubmit={handleEmailAuth} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4">
               {isSignUp && (
                 <div className="space-y-2">
-                  <Label htmlFor="name">Full Name</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required={isSignUp}
-                  />
+                  <Label htmlFor="name" className="text-sm font-medium">
+                    Full Name
+                  </Label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="Enter your full name"
+                      value={formData.name}
+                      onChange={(e) => handleInputChange("name", e.target.value)}
+                      className={`pl-10 ${errors.name ? "border-destructive" : ""}`}
+                      required={isSignUp}
+                    />
+                  </div>
+                  {errors.name && (
+                    <p className="text-sm text-destructive">{errors.name}</p>
+                  )}
                 </div>
               )}
               
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+                <Label htmlFor="email" className="text-sm font-medium">
+                  Email Address
+                </Label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="Enter your email address"
+                    value={formData.email}
+                    onChange={(e) => handleInputChange("email", e.target.value)}
+                    className={`pl-10 ${errors.email ? "border-destructive" : ""}`}
+                    required
+                  />
+                </div>
+                {errors.email && (
+                  <p className="text-sm text-destructive">{errors.email}</p>
+                )}
               </div>
+
+              {isSignUp && (
+                <>
+                  <div className="space-y-2">
+                    <Label htmlFor="password" className="text-sm font-medium">
+                      Password
+                    </Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Create a password"
+                        value={formData.password}
+                        onChange={(e) => handleInputChange("password", e.target.value)}
+                        className={`pl-10 pr-10 ${errors.password ? "border-destructive" : ""}`}
+                        required={isSignUp}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      >
+                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                    {errors.password && (
+                      <p className="text-sm text-destructive">{errors.password}</p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword" className="text-sm font-medium">
+                      Confirm Password
+                    </Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
+                      <Input
+                        id="confirmPassword"
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Confirm your password"
+                        value={formData.confirmPassword}
+                        onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+                        className={`pl-10 pr-10 ${errors.confirmPassword ? "border-destructive" : ""}`}
+                        required={isSignUp}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                      >
+                        {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                      </button>
+                    </div>
+                    {errors.confirmPassword && (
+                      <p className="text-sm text-destructive">{errors.confirmPassword}</p>
+                    )}
+                  </div>
+                </>
+              )}
 
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full bg-gradient-hero hover:opacity-90 transition-all duration-200"
                 disabled={isLoading}
               >
                 {isLoading ? (
                   <div className="flex items-center space-x-2">
                     <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                    <span>Sending magic link...</span>
+                    <span>{isSignUp ? "Creating account..." : "Signing in..."}</span>
                   </div>
                 ) : (
                   <div className="flex items-center space-x-2">
-                    <Mail className="w-4 h-4" />
-                    <span>Send magic link</span>
+                    <span>{isSignUp ? "Create Account" : "Sign In"}</span>
                   </div>
                 )}
               </Button>

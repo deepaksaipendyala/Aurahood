@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useUser } from "@/contexts/UserContext";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -26,23 +27,12 @@ import {
   X
 } from "lucide-react";
 
-// Mock user data - in real app, this would come from Supabase auth
-const mockUser = {
-  id: "1",
-  name: "Deepak Sai", 
-  email: "deepak@student.edu",
-  avatar: null as string | null,
-  roles: ["user"] as string[],
-  auraPoints: 1250,
-  trustScore: 4.8
-};
-
 const Navigation = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useUser();
   
-  const isAuthenticated = true; // Mock auth state
   const currentPath = location.pathname;
   
   const navLinks = [
@@ -55,7 +45,7 @@ const Navigation = () => {
   ];
 
   const handleSignOut = () => {
-    // In real app, handle Supabase signout
+    logout();
     navigate("/");
   };
 
@@ -131,11 +121,11 @@ const Navigation = () => {
             {/* Aura Points Badge */}
             <div className="hidden sm:flex items-center space-x-1 bg-gradient-aura rounded-full px-3 py-1">
               <Wallet className="w-4 h-4 text-white" />
-              <span className="text-white font-semibold">{mockUser.auraPoints.toLocaleString()}</span>
+              <span className="text-white font-semibold">{user?.auraPoints?.toLocaleString()}</span>
             </div>
 
             {/* Admin Access */}
-            {mockUser.roles.includes("admin") && (
+            {user?.roles.includes("admin") && (
               <Button variant="outline" size="sm" asChild>
                 <Link to="/admin" className="flex items-center space-x-1">
                   <Shield className="w-4 h-4" />
@@ -149,9 +139,9 @@ const Navigation = () => {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative h-10 w-10 rounded-full">
                   <Avatar className="h-10 w-10">
-                    <AvatarImage src={mockUser.avatar || ""} alt={mockUser.name} />
+                    <AvatarImage src={user?.avatar || ""} alt={user?.name || ""} />
                     <AvatarFallback className="bg-primary text-primary-foreground">
-                      {mockUser.name.split(' ').map(n => n[0]).join('')}
+                      {user?.name?.split(' ').map(n => n[0]).join('') || "U"}
                     </AvatarFallback>
                   </Avatar>
                 </Button>
@@ -159,14 +149,14 @@ const Navigation = () => {
               <DropdownMenuContent className="w-60" align="end" forceMount>
                 <DropdownMenuLabel className="font-normal">
                   <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium">{mockUser.name}</p>
-                    <p className="text-xs text-muted-foreground">{mockUser.email}</p>
+                    <p className="text-sm font-medium">{user?.name}</p>
+                    <p className="text-xs text-muted-foreground">{user?.email}</p>
                     <div className="flex items-center space-x-2 mt-1">
                       <Badge variant="secondary" className="text-xs">
-                        Trust: {mockUser.trustScore}⭐
+                        Trust: {user?.trustScore}⭐
                       </Badge>
                       <Badge variant="outline" className="text-xs capitalize">
-                        {mockUser.roles[0]}
+                        {user?.roles[0]}
                       </Badge>
                     </div>
                   </div>
@@ -233,7 +223,7 @@ const Navigation = () => {
                 <div className="bg-gradient-aura rounded-full px-4 py-2 flex items-center space-x-2">
                   <Wallet className="w-4 h-4 text-white" />
                   <span className="text-white font-semibold">
-                    {mockUser.auraPoints.toLocaleString()} Aura Points
+                    {user?.auraPoints?.toLocaleString()} Aura Points
                   </span>
                 </div>
               </div>

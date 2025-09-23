@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useUser } from "@/contexts/UserContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -20,11 +21,12 @@ import {
 } from "lucide-react";
 
 const Dashboard = () => {
+  const { user } = useUser();
+  
   // Mock data - in real app, this would come from Supabase
-  const user = {
-    name: "Deepak Sai",
-    auraPoints: 1250,
-    trustScore: 4.8,
+  const userStats = {
+    auraPoints: user?.auraPoints || 1250,
+    trustScore: user?.trustScore || 4.8,
     completedRequests: 23,
     helpedMembers: 18,
     co2Saved: 45.2,
@@ -114,7 +116,7 @@ const Dashboard = () => {
         <div className="container mx-auto px-4">
           {/* Welcome Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-2">Welcome back, {user.name}! 👋</h1>
+            <h1 className="text-3xl font-bold mb-2">Welcome back, {user?.name}! 👋</h1>
             <p className="text-muted-foreground">Here's what's happening in your community today.</p>
           </div>
 
@@ -125,7 +127,7 @@ const Dashboard = () => {
                 <div className="flex items-center space-x-2">
                   <Zap className="w-5 h-5" />
                   <div>
-                    <div className="text-2xl font-bold">{user.auraPoints.toLocaleString()}</div>
+                    <div className="text-2xl font-bold">{userStats.auraPoints.toLocaleString()}</div>
                     <div className="text-sm opacity-90">Aura Points</div>
                   </div>
                 </div>
@@ -137,7 +139,7 @@ const Dashboard = () => {
                 <div className="flex items-center space-x-2">
                   <Award className="w-5 h-5 text-primary" />
                   <div>
-                    <div className="text-2xl font-bold">{user.trustScore}</div>
+                    <div className="text-2xl font-bold">{userStats.trustScore}</div>
                     <div className="text-sm text-muted-foreground">Trust Score</div>
                   </div>
                 </div>
@@ -149,7 +151,7 @@ const Dashboard = () => {
                 <div className="flex items-center space-x-2">
                   <HandHeart className="w-5 h-5 text-accent" />
                   <div>
-                    <div className="text-2xl font-bold">{user.helpedMembers}</div>
+                    <div className="text-2xl font-bold">{userStats.helpedMembers}</div>
                     <div className="text-sm text-muted-foreground">People Helped</div>
                   </div>
                 </div>
@@ -161,7 +163,7 @@ const Dashboard = () => {
                 <div className="flex items-center space-x-2">
                   <TrendingUp className="w-5 h-5 text-success" />
                   <div>
-                    <div className="text-2xl font-bold">{user.co2Saved}</div>
+                        <div className="text-2xl font-bold">{userStats.co2Saved.toFixed(2)}</div>
                     <div className="text-sm text-muted-foreground">lbs CO₂ Saved</div>
                   </div>
                 </div>
@@ -343,23 +345,23 @@ const Dashboard = () => {
                   <div>
                     <div className="flex justify-between text-sm mb-2">
                       <span>Monthly Goal</span>
-                      <span>{user.hoursContributed}/50 hours</span>
+                      <span>{userStats.hoursContributed}/50 hours</span>
                     </div>
-                    <Progress value={(user.hoursContributed / 50) * 100} className="h-2" />
+                    <Progress value={(userStats.hoursContributed / 50) * 100} className="h-2" />
                   </div>
                   
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-sm text-muted-foreground">CO₂ Saved</span>
-                      <span className="text-sm font-medium">{user.co2Saved} lbs</span>
+                          <span className="text-sm font-medium">{userStats.co2Saved.toFixed(2)} lbs</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-sm text-muted-foreground">Hours Contributed</span>
-                      <span className="text-sm font-medium">{user.hoursContributed} hrs</span>
+                      <span className="text-sm font-medium">{userStats.hoursContributed} hrs</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-sm text-muted-foreground">Requests Completed</span>
-                      <span className="text-sm font-medium">{user.completedRequests}</span>
+                      <span className="text-sm font-medium">{userStats.completedRequests}</span>
                     </div>
                   </div>
 

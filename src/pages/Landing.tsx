@@ -85,18 +85,18 @@ const Landing = () => {
   ];
 
   const stats = [
-    { value: "50,000+", label: "Community Members" },
-    { value: "250,000+", label: "Successful Connections" },
-    { value: "98%", label: "Safety Rating" },
-    { value: "4.9/5", label: "User Satisfaction" }
+    { value: "0+", label: "Community Members" },
+    { value: "0+", label: "Successful Connections" },
+    { value: "0%", label: "Safety Rating" },
+    { value: "0/5", label: "User Satisfaction" }
   ];
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Top right Aurahood text - bigger and more prominent */}
-      <div className="absolute right-0 top-0 w-full flex justify-end z-30 pointer-events-none select-none">
+      {/* Aurahood title - centered on mobile, right on desktop */}
+      <div className="absolute top-0 w-full flex justify-center md:justify-end z-30 pointer-events-none select-none">
         <span
-          className="m-6 text-2xl md:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent tracking-normal drop-shadow-md rounded-full px-6 py-2"
+          className="m-3 md:m-6 text-4xl sm:text-5xl md:text-3xl lg:text-4xl font-extrabold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-400 bg-clip-text text-transparent tracking-normal drop-shadow-md rounded-full px-4 md:px-6 py-1 md:py-2"
           style={{ fontFamily: 'Nunito, Quicksand, Inter, sans-serif', letterSpacing: '0.01em', textTransform: 'none' }}
         >
           Aurahood
@@ -123,21 +123,29 @@ const Landing = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 w-full relative z-20">
-                <button
-                  onClick={handleGetStarted}
-                  className="flex items-center justify-center space-x-2 w-full sm:w-auto text-lg sm:text-xl py-4 px-8 bg-gradient-hero text-white font-bold rounded-2xl shadow-md hover:opacity-90 transition-all duration-200 relative z-20 cursor-pointer"
-                >
-                  <span className="text-xl sm:text-2xl">Get Started Free</span>
-                  <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7" />
-                </button>
-                <button
-                  onClick={handleDemo}
-                  className="flex items-center justify-center w-full sm:w-auto text-lg sm:text-xl py-4 px-8 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-2xl shadow-md transition-all duration-200 relative z-20 cursor-pointer"
-                >
-                  See Demo (POC)
-                </button>
-              </div>
+                  <div className="flex flex-col sm:flex-row gap-4 w-full relative z-20">
+                    <button
+                      onClick={handleGetStarted}
+                      className="flex items-center justify-center space-x-2 w-full sm:w-auto text-base py-3 px-6 bg-gradient-hero text-white font-bold rounded-xl shadow-md hover:opacity-90 transition-all duration-200 relative z-20 cursor-pointer"
+                    >
+                      <span>Get Started Free</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={handleDemo}
+                      className="flex items-center justify-center w-full sm:w-auto text-base py-3 px-6 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl shadow-md hover:opacity-90 transition-all duration-200 relative z-20 cursor-pointer"
+                    >
+                      <span>See Demo (POC)</span>
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </button>
+                    <button
+                      onClick={() => navigate('/investors')}
+                      className="flex items-center justify-center w-full sm:w-auto text-base py-3 px-6 bg-gradient-to-r from-purple-600 to-pink-500 text-white font-bold rounded-xl shadow-md hover:opacity-90 transition-all duration-200 relative z-20 cursor-pointer"
+                    >
+                      <span>For Investors</span>
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </button>
+                  </div>
 
               <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 pt-4">
                 {stats.map((stat, index) => (
@@ -272,13 +280,14 @@ const Landing = () => {
                   <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7 text-primary transition-colors duration-200" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary" asChild>
+              <Button size="lg" variant="secondary" asChild>
                 {/* Use a custom-styled Link for white background and purple text */}
                 <Link
                   to="/circles/join"
-                  className="inline-flex items-center justify-center w-full sm:w-auto text-center text-lg sm:text-xl py-4 px-8 bg-gradient-hero text-white font-bold rounded-2xl shadow-md hover:opacity-90 transition-all duration-200"
+                  className="inline-flex items-center justify-center w-full sm:w-auto text-center text-lg sm:text-xl py-4 px-8 border-2 border-white text-white font-semibold rounded-2xl bg-transparent hover:bg-white/10 hover:shadow-md transition-colors duration-200 gap-2"
                 >
-                  Find Your Circle
+                  <span className="text-lg sm:text-xl">Find Your Circle</span>
+                  <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7 text-primary transition-colors duration-200" />
                 </Link>
               </Button>
             </div>
@@ -310,6 +319,7 @@ const Landing = () => {
                 <li><Link to="/features" className="hover:text-primary transition-smooth">Features</Link></li>
                 <li><Link to="/safety" className="hover:text-primary transition-smooth">Safety</Link></li>
                 <li><Link to="/pricing" className="hover:text-primary transition-smooth">Pricing</Link></li>
+                <li><Link to="/investors" className="hover:text-primary transition-smooth">For Investors</Link></li>
               </ul>
             </div>
             
