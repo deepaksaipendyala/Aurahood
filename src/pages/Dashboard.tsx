@@ -22,7 +22,7 @@ import {
 const Dashboard = () => {
   // Mock data - in real app, this would come from Supabase
   const user = {
-    name: "Alex Chen",
+    name: "Deepak Sai",
     auraPoints: 1250,
     trustScore: 4.8,
     completedRequests: 23,

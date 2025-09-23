@@ -22,6 +22,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/auth" element={<Auth />} />
           <Route path="/auth/signin" element={<Auth />} />
           <Route path="/auth/signup" element={<Auth />} />
           <Route path="/circles" element={<Circles />} />

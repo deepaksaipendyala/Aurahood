@@ -29,8 +29,8 @@ import {
 // Mock user data - in real app, this would come from Supabase auth
 const mockUser = {
   id: "1",
-  name: "Alex Chen", 
-  email: "alex@student.edu",
+  name: "Deepak Sai", 
+  email: "deepak@student.edu",
   avatar: null as string | null,
   roles: ["user"] as string[],
   auraPoints: 1250,
@@ -77,7 +77,7 @@ const Navigation = () => {
               <Button variant="ghost" asChild>
                 <Link to="/auth/signin">Sign In</Link>
               </Button>
-              <Button variant="default" asChild>
+              <Button variant="default" className="bg-gradient-hero hover:opacity-90" asChild>
                 <Link to="/auth/signup">Get Started</Link>
               </Button>
             </div>

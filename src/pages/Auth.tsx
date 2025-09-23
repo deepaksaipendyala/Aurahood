@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -17,7 +17,18 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
+
+  // Set signup state based on route
+  useEffect(() => {
+    if (location.pathname === "/auth/signup") {
+      setIsSignUp(true);
+    } else if (location.pathname === "/auth/signin") {
+      setIsSignUp(false);
+    }
+    // For /auth route, keep current state or default to false
+  }, [location.pathname]);
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -156,8 +167,8 @@ const Auth = () => {
 
             {/* Demo Login */}
             <Button
-              variant="secondary"
-              className="w-full"
+              variant="default"
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-500 hover:from-purple-700 hover:to-pink-600 text-white font-semibold"
               onClick={handleDemoLogin}
               disabled={demoLoading}
             >
@@ -168,7 +179,7 @@ const Auth = () => {
                 </div>
               ) : (
                 <div className="flex items-center space-x-2">
-                  <span>Demo Login (POC)</span>
+                  <span>Try Demo (POC)</span>
                 </div>
               )}
             </Button>

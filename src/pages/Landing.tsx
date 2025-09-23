@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +19,17 @@ import {
 import heroImage from "@/assets/hero-image.jpg";
 
 const Landing = () => {
+  const navigate = useNavigate();
+
+  const handleGetStarted = () => {
+    console.log("Get Started button clicked");
+    navigate("/auth/signup");
+  };
+
+  const handleDemo = () => {
+    console.log("Demo button clicked");
+    navigate("/auth/signin");
+  };
   const features = [
     {
       icon: Car,
@@ -112,24 +123,20 @@ const Landing = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 w-full">
-                <Button size="lg" className="bg-gradient-hero hover:opacity-90 transition-smooth w-full sm:w-auto" asChild>
-                  <Link
-                    to="/auth"
-                    className="flex items-center justify-center space-x-2 w-full sm:w-auto text-lg sm:text-xl py-4 px-8 bg-gradient-hero text-white font-bold rounded-2xl shadow-md hover:opacity-90 transition-all duration-200"
-                  >
-                    <span className="text-xl sm:text-2xl">Get Started Free</span>
-                    <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                  <Link
-                    to="/auth"
-                    className="flex items-center justify-center w-full sm:w-auto text-lg sm:text-xl py-4 px-8 bg-gradient-hero text-white font-bold rounded-2xl shadow-md hover:opacity-90 transition-all duration-200"
-                  >
-                    See Demo (POC)
-                  </Link>
-                </Button>
+              <div className="flex flex-col sm:flex-row gap-4 w-full relative z-20">
+                <button
+                  onClick={handleGetStarted}
+                  className="flex items-center justify-center space-x-2 w-full sm:w-auto text-lg sm:text-xl py-4 px-8 bg-gradient-hero text-white font-bold rounded-2xl shadow-md hover:opacity-90 transition-all duration-200 relative z-20 cursor-pointer"
+                >
+                  <span className="text-xl sm:text-2xl">Get Started Free</span>
+                  <ArrowRight className="w-6 h-6 sm:w-7 sm:h-7" />
+                </button>
+                <button
+                  onClick={handleDemo}
+                  className="flex items-center justify-center w-full sm:w-auto text-lg sm:text-xl py-4 px-8 border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold rounded-2xl shadow-md transition-all duration-200 relative z-20 cursor-pointer"
+                >
+                  See Demo (POC)
+                </button>
               </div>
 
               <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 pt-4">
