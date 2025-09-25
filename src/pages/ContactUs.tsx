@@ -76,6 +76,7 @@ const ContactUs = () => {
       title: "Email Support",
       description: "Get detailed help via email",
       contact: "team@aurahood.org",
+      link: "mailto:team@aurahood.org",
       availability: "Response within 24 hours",
       color: "bg-blue-100 text-blue-600"
     },
@@ -84,6 +85,7 @@ const ContactUs = () => {
       title: "Investor Relations",
       description: "For investors and partnerships",
       contact: "investors@aurahood.org",
+      link: "mailto:investors@aurahood.org",
       availability: "Business hours response",
       color: "bg-purple-100 text-purple-600"
     },
@@ -92,6 +94,7 @@ const ContactUs = () => {
       title: "Business Inquiries",
       description: "For enterprise and business partnerships",
       contact: "deepaksaip@aurahood.org",
+      link: "mailto:deepaksaip@aurahood.org",
       availability: "Response within 48 hours",
       color: "bg-green-100 text-green-600"
     },
@@ -164,7 +167,18 @@ const ContactUs = () => {
                   </div>
                   <h3 className="font-semibold text-lg mb-2">{method.title}</h3>
                   <p className="text-muted-foreground mb-3">{method.description}</p>
-                  <p className="font-medium text-primary mb-2">{method.contact}</p>
+                  <p className="font-medium text-primary mb-2">
+                    {method.link ? (
+                      <a 
+                        href={method.link} 
+                        className="hover:underline hover:text-primary/80 transition-colors"
+                      >
+                        {method.contact}
+                      </a>
+                    ) : (
+                      method.contact
+                    )}
+                  </p>
                   <p className="text-sm text-muted-foreground">{method.availability}</p>
                 </Card>
               ))}

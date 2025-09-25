@@ -84,9 +84,9 @@ src/
 
 ## Contact
 
-- **Email**: team@aurahood.org
-- **Investors**: investors@aurahood.org
-- **Business**: deepaksaip@aurahood.org
+- **Email**: [team@aurahood.org](mailto:team@aurahood.org)
+- **Investors**: [investors@aurahood.org](mailto:investors@aurahood.org)
+- **Business**: [deepaksaip@aurahood.org](mailto:deepaksaip@aurahood.org)
 
 ## License
 

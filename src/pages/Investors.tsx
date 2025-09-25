@@ -405,9 +405,11 @@ const Investors = () => {
                 more sustainable, and more connected.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-gradient-hero hover:opacity-90">
-                  <Mail className="w-5 h-5 mr-2" />
-                  investors@aurahood.org
+                <Button size="lg" className="bg-gradient-hero hover:opacity-90" asChild>
+                  <a href="mailto:investors@aurahood.org">
+                    <Mail className="w-5 h-5 mr-2" />
+                    investors@aurahood.org
+                  </a>
                 </Button>
                 <Button variant="outline" size="lg">
                   <ExternalLink className="w-5 h-5 mr-2" />
