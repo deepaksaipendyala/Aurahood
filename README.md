@@ -1,73 +1,97 @@
-# Welcome to your Lovable project
+# Aurahood
 
-## Project info
+**Your Trusted Community Companion Network**
 
-**URL**: https://lovable.dev/projects/3c386ad2-0d33-447a-8bd8-351b5d4ac791
+Aurahood is a community companion network where people earn and spend Aura Points for high-trust, real-world help—campus↔airport carpools, clinic/grocery companionship for seniors, and quick home/event help.
 
-## How can I edit this code?
+## Features
 
-There are several ways of editing your application.
+- **Safe Rides**: Get rides from trusted community members with verified profiles and ratings
+- **Home Help**: Find reliable help for daily tasks from grocery runs to tech support
+- **Event Companions**: Never go alone to events - find companions for concerts, movies, and social gatherings
+- **Elder Care**: Compassionate companions for seniors who need assistance and social connection
+- **Aura Points**: Earn points for helping others, redeem for rewards, and build your community reputation
+- **Safety First**: Live tracking, emergency contacts, and thorough background checks
 
-**Use Lovable**
+## Tech Stack
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3c386ad2-0d33-447a-8bd8-351b5d4ac791) and start prompting.
+- **Frontend**: React + TypeScript + Vite
+- **UI Components**: shadcn/ui + Tailwind CSS
+- **Routing**: React Router
+- **Icons**: Lucide React
+- **Development**: Hot Module Replacement (HMR)
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js (version 16 or higher)
+- npm or yarn
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd Aurahood
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. Install dependencies:
+```bash
+npm install
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open your browser and navigate to `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Available Scripts
 
-**Use GitHub Codespaces**
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Project Structure
 
-## What technologies are used for this project?
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # shadcn/ui components
+│   └── Navigation.tsx  # Main navigation component
+├── pages/              # Page components
+│   ├── Landing.tsx     # Homepage
+│   ├── Auth.tsx        # Authentication pages
+│   ├── Dashboard.tsx   # User dashboard
+│   └── ...
+├── contexts/           # React contexts
+│   └── UserContext.tsx # User authentication context
+├── hooks/              # Custom React hooks
+├── lib/                # Utility functions
+└── assets/             # Static assets
+```
 
-This project is built with:
+## Contributing
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/new-feature`
+3. Commit your changes: `git commit -am 'Add new feature'`
+4. Push to the branch: `git push origin feature/new-feature`
+5. Submit a pull request
 
-## How can I deploy this project?
+## Contact
 
-Simply open [Lovable](https://lovable.dev/projects/3c386ad2-0d33-447a-8bd8-351b5d4ac791) and click on Share -> Publish.
+- **Email**: team@aurahood.org
+- **Investors**: investors@aurahood.org
+- **Business**: deepaksaip@aurahood.org
 
-## Can I connect a custom domain to my Lovable project?
+## License
 
-Yes, you can!
+This project is proprietary software. All rights reserved.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Built with ❤️ for stronger communities.
